@@ -20,7 +20,7 @@ ul#menu-main > li > a:focus,ul#menu-main > li > a:active, ul#menu-main > li > a.
 	color: #1BAC91;
 }
 #header-wrapper h1 span {
-	color:#1BAC91;
+	color:#5e1010;
 }
 
 #header-wrapper input[type=submit] {
@@ -60,7 +60,7 @@ ul#menu-main > li > a:focus,ul#menu-main > li > a:active, ul#menu-main > li > a.
 }
 
 .portfolio .portfolio-overlay {
-	background: #1BAC91;
+	background: #5e1010;
 }
 
 /* icon */

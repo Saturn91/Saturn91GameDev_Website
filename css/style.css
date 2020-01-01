@@ -371,7 +371,7 @@ header .logo {
 
 /* --- Header slider --- */
 #header-wrapper.header-slider {
-	background: #444 url(../img/bg/bg-1.jpg) no-repeat center center fixed;
+	background: #444 url(../img/bg/Background1.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -461,10 +461,10 @@ section.inner {
 
 
 .section.orange h4 ,.section.green h4{
-	color: #fcfcfc;
+	color: #ffffff;
 }
 .section.orange p,.section.green p {
-	color: #f7f7f7;
+	color: #ffffff;
 }
 
 
@@ -472,15 +472,15 @@ section.inner {
 
 section.spacer {
 	padding:90px 0 70px;
-	color:#fcfcfc;
+	color:#ffffff;
 }
 
 .spacer.green,.section.green {
-	background:#1bac91;
+	background:#790606;
 }
 
 .spacer.green,.section.green h4 {
-	color:#fff;
+	color:#ffffff;
 }
 
 .spacer.yellow,.section.yellow  {
@@ -746,7 +746,7 @@ section#services .service-box {
 	transition: all 0.3s ease-in-out;
 }
 section#services .span3:hover {
-	background:#e3e3e3;
+	background:#7e0000;
 }
 
 section#services .service-box h2 {
@@ -783,18 +783,26 @@ section#blog {
 
 
 .home-post .entry-content {
+	background: #7c2f2f;
 	padding:20px;
+	color:#fcfcfc
 }
 .home-post .entry-content h5 a {
 	font-size:22px;
+	color:#fcfcfc;
 }
 .home-post .entry-content h5 a:hover {
-	color:#312f2b;
+	color:#a2a2a2;
 	text-decoration:none;
 }
 .home-post .entry-content a.more {
 	font-size:13px;
+	color:#fcfcfc
 }
+.home-post .entry-content a.more:hover {
+	color:#a2a2a2;
+}	
+
 .home-post .post-meta {
 	padding:20px;
 	overflow:hidden;
@@ -1323,13 +1331,13 @@ i.icon-white {
 .btn.disabled,
 .btn[disabled] {
   color: #fff;
-  background-color: #333;
-  *background-color: #333;
+  background-color: #7e0000;
+  *background-color: #7e0000;
 }
 
 
 .btn.btn-theme:hover {
-	background: #333 !important;
+	background: #4a1010 !important;
 }
 
 /* size */
@@ -1382,6 +1390,26 @@ i.icon-white {
   background-image: none;
   border-color: none;
   filter:none;
+}
+
+.btn.btn-my {
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #aa140b;
+  *background-color: #790600;
+  background-image: none;
+  border-color: none;
+  filter:none;
+}
+
+.btn.btn-my:hover,
+.btn.btn-my:focus,
+.btn.btn-my.active,
+.btn.btn-my.active,
+.btn.btn-my.disabled,
+.btn-my[disabled] {
+  color: #ffffff;
+  background: #7b0000;
 }
 
 .btn-primary:hover,
