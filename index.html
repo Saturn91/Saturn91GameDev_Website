@@ -377,8 +377,7 @@
 					<div class="span12">
 						<div class="cform" id="contact-form">
 							<div id="sendmessage">Your message has been sent. Thank you!</div>
-							<div id="errormessage"></div>
-							<form action="" method="post" role="form" class="contactForm">
+							<form method="post" role="form" class="pure-form pure-form-stacked contactForm" action="https://script.google.com/macros/s/AKfycbymicMotI6GUV0sz4YWgV7S02DEwlz7epQANjbWvjLXlkrtBe4/exec">
 								<div class="row">
 									<div class="span6">
 										<div class="field your-name form-group">
@@ -399,7 +398,7 @@
 											<textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
 											<div class="validation"></div>
 										</div>
-										<input type="submit" value="Send message" class="btn btn-my pull-left">
+										<input type="submit" value="Send message" method="POST" class="btn btn-my pull-left" OnClick="Confirm_Email();">
 									</div>
 								</div>
 							</form>
@@ -408,7 +407,15 @@
 					<!-- ./span12 -->
 				</div>
 			</div>
-		</section>
+			<script data-cfasync="false" type="text/javascript"
+				        src="https://cdn.rawgit.com/dwyl/learn-to-send-email-via-google-script-html-no-server/master/form-submission-handler.js">
+			</script>
+			<script>
+				function Confirm_Email() {
+					alert("Your mail has been send");
+				}
+			</script>
+		</section>		
 		<footer>
 			<div class="container">
 				<div class="row">
