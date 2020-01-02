@@ -35,6 +35,12 @@
 		  width: 25%;
 		  padding-left: 20px;
 		}
+		
+		/* Center column */
+		.center {
+			margin: auto;
+			width: 80%;
+		}
 
 		/* Fake image */
 		.fakeimg {
@@ -105,7 +111,7 @@
 						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
 						<!--li><a title="services" href="#services">Services</a></li-->
 						<li><a title="Games" href="index.html#Games">Games</a></li>
-						<li><a title="Dev-Log" href="Blog.html">Dev-Log</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
 						<li><a title="contact" href="index.html#contact">Contact</a></li>
 						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
 					</ul>
@@ -116,32 +122,35 @@
 </div>
 
 <div class="row">
-  <div class="leftcolumn">
+  <div class="center">
 	<div class="blogCard">
-      <h2>About Me</h2>
-      <img src="img/Blog/Saturn91.jpg" alt="" style="height:200px;"></img>
-	  <h2>The beginning</h2>
-      <p>I am a solo indie game developer. I started about 5 years ago inspired by some C++ programming course at university. 
-		The first games back then where some simple text-based console programms. It got more serious after reading some 
-		"game programming in C++ for beginner" book (I dont remeber either author nor title) which taught me the basics of a game loop, animations and stuff. </p>
-		<img src="img/Blog/SpaceShip.png" alt="" style="height:62px;"></img>
-		<h2>The industrial programmer</h2>
-		<p>By the start of the second year in university we began working with Java, which brought me to a entirely new level of programming. To gether with a colleague
-		we started creating tetris and snake - and well that was when I decided to become a professional programmer.</p>
-		<br> 
-		<p>By the end of the last year I became a decent java programmer with a deeper understandig of version control, buildpipelines and team work... 
-		As I didn't manage to find a job as a java-programmer I started working as a PLC programmer (a PLC is basically a Computer which controls machines) 
-		in a well known Swiss/American Enterprise. That is where I'm having fun now in a old fashion "8 hour / 5 Days a week" job.</p>
-		<br>
-		<h2>Unity</h2> 
-		<img src="img/Blog/unity.png" alt="" style="height:100px;"></img>
-		<p>During this time I stumbled across <strong><a href="https://unity.com/" target="_blank">Unity 3D</a></strong> - which just blew my mind! It was so easy coming from my background. So after some try and error I released 
-		my first ever finished and published game <strong><a href="https://saturn91.itch.io/ai-buster" target="_blank">AI-Buster</a></strong> at the end of 2019.</p>
-		<br>
 		<h2>Argh there she blows</h2>
-		<img src="img/games/Argh_there_she_blows.png" alt="" style="height:200px;"></img>
-		<p>By 2020 I started working on a new Game "Argh, there she blows". A Game about the player beeing a Space Captain hunting down Space Whales for Money"</p>
+		<img src="img/games/Argh_there_she_blows.png" alt="" style="height:400px;"></img>
+		<p>After finishing <strong><a href="https://saturn91.itch.io/ai-buster" target="_blank">AI-Buster</a></strong> I was tuned to plan my next game. 
+		After watching the new Netflix movie "Moby dick" over Christmas I got inspired to make a new game. A simply whale hunting game would be to easy, there are already some
+		examples online. So I went with the idea of creating a space game. Whales in space? I hear you asking - yes thats exactly what I'm talking about ;-)</p>
     </div>
+	<div class="blogCard">
+      <h2>Drafting in a notepad</h2>
+      <img src="img/Blog/Blog3/scetch.jpg" alt="" style="height:400px;"></img>
+      <p>Foto of my first scetch in my personal notepad</p>
+      <p>I like to gather my ideas very analog on a good old piece of paper, starting with a one sentences description, that is what I cam up with</p>
+	  <br>
+	  <p><strong>You are a Space Captain hunting down Space Whales for money</strong><p>
+	  <br>
+	  <p> The gameplay-basics will be simple, hunt whales, gather resources, sell, buy better equipment for your ship, eventually sell your ship and buy a new one, repeat. 
+		On randomly placed planets in the game world you can sell your resources and buy new equipment. In the big open space you explore new regions to find more valuable whales.
+		Oh and the "Argh" in the game title comes from the "Evil" pirates which will make your life hard, or dou you wish to become a priat your self??
+    </div>
+	<div class="blogCard">
+      <h2>The prototype</h2>
+      <img src="img/Blog/Blog3/Prototype.png" alt="" style="height:400px;"></img>
+      <p>Screenshot of my early 2D unity prototype</p>
+      <p>I opened up unity and began scripting around some basic shapes to get the feel of what I want to create. This is what I came up with after some minutes</p>
+    </div>
+	<div>
+		<a href="Blog.html#Blog3" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
 	<!--div class="blogCard">
       <h2>New entry Example</h2>
       <h5>Title description, Dec 7, 2017</h5>
@@ -149,35 +158,6 @@
       <p>BliBlaBlub</p>
       <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
     </div-->
-	<div class="blogCard" id="Blog3">
-      <h2>New Game "Argh, there she blows!"</h2>
-      <h5>AI-Buster-dev-log, Dec 30, 2019</h5>
-      <img src="img/blog_preview/Blog3.png" alt="" style="height:200px;"></img>
-      <p>Screenshot of the game</p>
-      <p>Let me describe the new game-idea "Argh there she blows", read more here <strong><a class="link" href="03_blog.html" target="_blank">here</a></strong></p>
-    </div>
-    <div class="blogCard" id="Blog2">
-      <h2>Fixing an enoying Bug</h2>
-      <h5>AI-Buster-dev-log, Dec 28, 2019</h5>
-      <img src="img/blog_preview/Blog1.jpg" alt="" style="height:200px;"></img>
-      <p>Screenshot of the game</p>
-      <p>see the full dev-log entry on <strong><a class="link" href="https://saturn91.itch.io/ai-buster/devlog/116788/fixing-an-enoying-bug" target="_blank">itch.io</a></strong></p>
-    </div>
-	<div class="blogCard" id="Blog1">
-      <h2>Getting AI-Buster published</h2>
-      <h5>AI-Buster-dev-log, Dec 21, 2019</h5>
-      <img src="img/blog_preview/Blog2.jpg" alt="" style="height:200px;"></img>
-      <p>Screenshot of the game</p>
-      <p>see the full dev-log entry on <strong><a class="link" href="https://saturn91.itch.io/ai-buster/devlog/115835/getting-it-polished-finaly" target="_blank">itch.io</a></strong></p>
-    </div>
-  </div>
-  <div class="rightcolumn">
-    <div class="blogCard">
-      <h3>Popular Post</h3>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div>
-    </div>
   </div>
 </div>  
 <footer>
@@ -221,5 +201,6 @@
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
 	<script src="contactform/contactform.js"></script>
+
 </body>
 </html>
