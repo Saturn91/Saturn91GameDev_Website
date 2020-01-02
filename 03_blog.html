@@ -43,10 +43,18 @@
 		}
 
 		/* Fake image */
-		.fakeimg {
-		  background-color: #aaa;
-		  width: 100%;
-		  padding: 20px;
+		.img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+		.video {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
 		}
 		
 
@@ -125,14 +133,14 @@
   <div class="center">
 	<div class="blogCard">
 		<h2>Argh there she blows</h2>
-		<img src="img/games/Argh_there_she_blows.png" alt="" style="width: 100%;"></img>
+		<img class="img" src="img/games/Argh_there_she_blows.png" alt=""></img>
 		<p>After finishing <strong><a href="https://saturn91.itch.io/ai-buster" target="_blank">AI-Buster</a></strong> I was tuned to plan my next game. 
 		After watching the new Netflix movie "Moby dick" over Christmas I got inspired to make a new game. A simply whale hunting game would be to easy, there are already some
 		examples online. So I went with the idea of creating a space game. Whales in space? I hear you asking - yes thats exactly what I'm talking about ;-)</p>
     </div>
 	<div class="blogCard">
       <h2>Drafting in a notepad</h2>
-      <img src="img/Blog/Blog3/scetch.jpg" alt="" style="width: 100%;"></img>
+      <img class="img" src="img/Blog/Blog3/scetch.jpg" alt=""></img>
       <p>Foto of my first scetch in my personal notepad</p>
       <p>I like to gather my ideas very analog on a good old piece of paper, starting with a one sentences description, that is what I cam up with</p>
 	  <br>
@@ -144,8 +152,11 @@
     </div>
 	<div class="blogCard">
       <h2>The prototype</h2>
-      <img src="img/Blog/Blog3/Prototype.png" alt="" style="width: 100%;"></img>
-      <p>Screenshot of my early 2D unity prototype</p>
+		<video class="video" controls>
+		  <source src="videos/EarlyPrototype.mp4" type="video/mp4">
+		  Your browser does not support HTML5 video.
+		</video>
+      <p>See my prototype in action</p>
       <p>I opened up unity and began scripting around some basic shapes to get the feel of what I want to create. This is what I came up with after some minutes</p>
     </div>
 	<div>
