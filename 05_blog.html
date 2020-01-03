@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Add a gray background color with some padding */
+		body {
+		  font-family: Arial;
+		  padding: 20px;
+		  background: #f1f1f1;
+		}
+
+		/* Header/Blog Title */
+		.header {
+		  padding: 30px;
+		  font-size: 40px;
+		  text-align: center;
+		  background: white;
+		}
+
+		/* Create two unequal columns that floats next to each other */
+		/* Left column */
+		.leftcolumn {   
+		  float: left;
+		  width: 75%;
+		}
+
+		/* Right column */
+		.rightcolumn {
+		  float: left;
+		  width: 25%;
+		  padding-left: 20px;
+		}
+		
+		/* Center column */
+		.center {
+			margin: auto;
+			width: 80%;
+		}
+
+		/* Fake image */
+		.img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+		.video {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Footer */
+		.footer {
+		  padding: 20px;
+		  text-align: center;
+		  background: #ddd;
+		  margin-top: 20px;
+		}
+		
+		/* Link */
+		.link {
+			color: #7c2f2f;
+		}
+		
+		pre code {
+			background-color: #eee;
+			border: 1px solid #999;
+			display: block;
+			padding: 20px;
+		}
+
+		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 800px) {
+		  .leftcolumn, .rightcolumn {   
+			width: 100%;
+			padding: 0;
+		  }
+		}
+		</style>
+	<meta charset="utf-8">
+	<title>Saturn91 - GameDev</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
+	<!-- =======================================================
+    Theme Name: Maxim
+    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
+				<h1 class="brand"><a href="index.html">Saturn91 Game Dev</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+					<ul id="menu-main" class="nav">
+						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
+						<!--li><a title="services" href="#services">Services</a></li-->
+						<li><a title="Games" href="index.html#Games">Games</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
+						<li><a title="contact" href="index.html#contact">Contact</a></li>
+						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="center">
+	<div class="blogCard">
+      <h2>Programming Harpunes in Unity</h2>
+      <img class="img" src="img/Blog/Blog5/preview.png" alt=""></img>
+      <p>Screenshot in the unity editor</p>
+      <p>In my game the main game play is about hunting down space whales. So that is what I will implement first. In the past (on the seas not in space) 
+	  those poor sailors had to face sperm whales and other dangerous sea creatures manned with a hand trown harpune. The space age got an upgrade. The space whalers
+	  will be able to fire the harpune safely from a harpune canon mounted in fornt of their spaceship.</p>
+	  <br>
+	  <p>
+	  The Tip of the harpune is easy. Here the Code:
+	  </p>
+	  <div>
+	  <pre><code>
+public class HarpuneCanon : MonoBehaviour
+{
+    public GameObject harpune;	//Prefab for the Harpune tip
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject go = Instantiate(harpune);
+            go.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            go.GetComponent<Harpune>().Fire(transform);
+
+        }
+    }
+}</pre></code>
+		</div>
+		
+		<div>
+			<pre>Part of the Harpune class<code>
+// Update is called once per frame
+void FixedUpdate()
+{
+	if (fired)
+	{
+		if (!stopped)
+		{
+			speedScaledVec.x = speed * Time.fixedDeltaTime;
+			speedScaledVec.y = speed * Time.fixedDeltaTime;
+
+			transform.position = transform.position + Vector3.Scale(direction, speedScaledVec);
+		}
+	}
+}
+
+public void Fire(Transform player, PlayerMovement playerMovement)
+{
+	/* lineInstance = Instantiate(linePrefab.gameObject).GetComponent<Line>(); --> ignore for now! */
+	
+	// get current facing-diretion of the player --> harpune shall move further in to that direction
+	float zAnglePlayer = (player.localRotation.eulerAngles.z -180) / 57.2958f;	// /57.2958f => basically degree to rad
+
+	direction.x = Mathf.Cos(zAnglePlayer);
+	direction.y = Mathf.Sin(zAnglePlayer);
+	// end of facing direction
+
+	//rotate harpune tip 
+	transform.rotation = player.rotation;
+			
+	fired = true;
+	this.player = player;
+	
+	/* lineInstance.DrawLine(transform.position, player.position, 2, Color.white); --> ignore for now */
+}</pre></code>
+		</div>
+    </div>
+	<div class="blogCard">
+      <h2>Drawing the line</h2>
+	  <p>This was the harder part (due to some confusion on my side...). To break it down I made this test setup. To Gameobjects which I want to connect with a line
+	  the math behind that should be simple, we take a look at the result and code:<p>
+		<img class="img" src="img/Blog/Blog5/lineDrawerTest.png" alt=""></img>
+		<br>		
+		<div>
+			<pre>The Line class<code>
+public class Line : MonoBehaviour
+{
+    public SpriteRenderer lineRenderer;
+    public float defaultStrenght = 0.05f;
+
+    private Vector2 startPoint;
+    private Vector3 endPoint;
+
+    private float strenght;
+    private float lenght;
+			
+	public void DrawLine(Vector2 startPoint, Vector2 endPoint, float strenght, Color color)
+	{
+
+		this.strenght = strenght;
+
+		SetColor(color);
+
+		UpdateLine(startPoint, endPoint);
+	}
+
+	public void UpdateLine(Vector2 startPoint, Vector2 endPoint)
+	{
+		//lenght
+		lenght = Mathf.Abs(Vector2.Distance(startPoint, endPoint));
+		lineRenderer.gameObject.transform.localScale = new Vector2(lenght, strenght * defaultStrenght);		//you need the local scale here!
+
+		//position
+		lineRenderer.gameObject.transform.SetPositionAndRotation(new Vector2(	//this is basicaly all the "magic"
+				startPoint.x + (endPoint.x - startPoint.x) / 2, 
+				startPoint.y + (endPoint.y - startPoint.y) / 2), 
+				transform.rotation);
+
+		//rotation
+		float alpha = Mathf.Atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x) * 57.2958f;   // * 57.2958f -> rad to degrees (basically 180/pi)
+		transform.eulerAngles = new Vector3(0, 0, alpha);
+	}
+	
+	[...]
+}			
+</pre></code>
+		</div>
+		<p>
+		I also had to make sure to implement the Line-Prefab was setup corectly. It was important, that if I set the lenght of 1 in the class "Line" the 
+		coresponding SpriteRenderer2D would also have the size 1, so my calculated size and the actual displayed image would match. You can achieve this
+		by enter in the "pixel per unit" field of the texture you use (in my case "baseImage") exactly the image size (I had a 64px x 64px png, so I entered 64 in that field).
+		The Picture bellow shows my Line-Prefab.
+		</p>
+		<br>
+		<img class="img" src="img/Blog/Blog5/LinePrefab.png" alt=""></img>
+		<br>
+		</div>
+	<div class="blogCard">
+		<h2>Having Fun with bugs</h2>
+		<p>On first try it never goes well, would be boring if it would right??? But some minutes later I had a working prototype</p>
+		<img class="img" src="img/Blog/Blog5/Bug1.png" alt=""></img>
+    </div>
+	<div class="blogCard">
+      <h2>It works! Man the guns!</h2>
+	  <p>Watch a short demo of the working harpunes firing away</p>
+		<video class="video" controls>
+		  <source src="videos/Harpunes.mp4" type="video/mp4">
+		  Your browser does not support HTML5 video.
+		</video>
+    </div>
+	<div>
+		<a href="Blog.html#Blog5" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
+	<!--div class="blogCard">
+      <h2>New entry Example</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>BliBlaBlub</p>
+      <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div-->
+  </div>
+</div>  
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="span6 offset3">
+				<ul class="social-networks">
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+				</ul>
+				<p class="copyright">
+					&copy; Maxim Theme. All rights reserved.
+					<div class="credits">
+						<!--
+			All the links in the footer should remain intact.
+			You can delete the links only if you purchased the pro version.
+			Licensing information: https://bootstrapmade.com/license/
+			Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+		  -->
+						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/jquery.localScroll.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/isotope.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/inview.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="contactform/contactform.js"></script>
+
+</body>
+</html>
