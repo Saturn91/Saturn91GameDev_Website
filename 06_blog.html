@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Add a gray background color with some padding */
+		body {
+		  font-family: Arial;
+		  padding: 20px;
+		  background: #f1f1f1;
+		}
+
+		/* Header/Blog Title */
+		.header {
+		  padding: 30px;
+		  font-size: 40px;
+		  text-align: center;
+		  background: white;
+		}
+
+		/* Create two unequal columns that floats next to each other */
+		/* Left column */
+		.leftcolumn {   
+		  float: left;
+		  width: 75%;
+		}
+
+		/* Right column */
+		.rightcolumn {
+		  float: left;
+		  width: 25%;
+		  padding-left: 20px;
+		}
+		
+		/* Center column */
+		.center {
+			margin: auto;
+			width: 80%;
+		}
+
+		/* Fake image */
+		.img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+		.img-half {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 40%;
+		}
+		
+		.img-quarter {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 20%;
+		}
+		
+		.video {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Footer */
+		.footer {
+		  padding: 20px;
+		  text-align: center;
+		  background: #ddd;
+		  margin-top: 20px;
+		}
+		
+		/* Link */
+		.link {
+			color: #7c2f2f;
+		}
+		
+		pre code {
+			background-color: #eee;
+			border: 1px solid #999;
+			display: block;
+			padding: 20px;
+		}
+
+		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 800px) {
+		  .leftcolumn, .rightcolumn {   
+			width: 100%;
+			padding: 0;
+		  }
+		}
+		</style>
+	<meta charset="utf-8">
+	<title>Saturn91 - GameDev</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
+	<!-- =======================================================
+    Theme Name: Maxim
+    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
+				<h1 class="brand"><a href="index.html">Saturn91 Game Dev</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+					<ul id="menu-main" class="nav">
+						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
+						<!--li><a title="services" href="#services">Services</a></li-->
+						<li><a title="Games" href="index.html#Games">Games</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
+						<li><a title="contact" href="index.html#contact">Contact</a></li>
+						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="center">
+	<div class="blogCard">
+      <h2>Loading the Gameworld in Sections (Unity)</h2>
+      <img class="img" src="img/blog_preview/Blog6.png" alt=""></img>
+      <p>Screenshot in the unity editor</p>
+	  <p>In the following article I'm going to talk about how I handle a big-World in Unity. For "Argh, There she blows!", 
+	  I plan the whole world to take place in one Scene. But as I plan to randomly generate a "World" (Universe would be the better term ;-)),
+	  with hunderts of Planets. It is clear that there has to happen some magic in the background to load/unload sections while playing.</p>
+	</div>  
+	<div class="blogCard">
+	  <h3>Generating "endless" Planets and whales</h3>
+      <p>To test my games actual performance I dublicated my "Planet and Whale" Example Section into a bigger Map. To achive this, 
+	  I added the Planet and the whale into a "SectionPrefab" and dublicated it as shwon bellow.</p>
+	  <div>
+	  <pre>Part of the class "WorldManager"<code>
+for (int x = 0; x < worldWidthInSections; x++)
+{
+	for(int y = 0; y < worldHeightInSections; y++)
+	{
+		vector2Temp.x = x;
+		vector2Temp.y = y;
+		GameObject go = sectionGenerator.GenerateSection(new SectionPrefs(1, SectionTypes.empty, vector2Temp));
+
+		Section tempSection = go.GetComponent<Section>();
+
+		if(tempSection != null)
+		{
+			sections[x, y] = tempSection;
+		}
+		else
+		{
+			Debug.LogError("SectionGenerator must generate an object which consists of a Section Component");
+		}                
+	}
+}</pre></code>
+		</div>
+		<br>
+		<p>As you can see bellow, I only Instantiate a Prefab of a GameObject (which in this case just holds my Example Planet (a circle) and a Whale (another - stretched - circle)).
+<div>
+	  <pre>The above used Methode: "SectionGenerator.GenerateSection(...)"<code>
+public GameObject GenerateSection(SectionPrefs sectionPrefs)
+{
+	GameObject sectionGO = Instantiate(sectionPrefab);
+	sectionGO.GetComponent<Section>().InitSection(sectionPrefs);
+	//TODO: Actually generate the Section
+	return sectionGO;
+}</pre></code>
+		</div>	
+		<p> View the result of the "generation" process.</p>
+		<img class="img" src="img/Blog/Blog6/PlanetMadness.png" alt=""></img>	
+	
+    </div>
+	<div class="blogCard">
+      <h3>Measuring Performance (FPS) in Unity</h3>
+		<p>To measure the performance I used some code which I already implemented for <strong><a href="">AI-Buster</a></strong>. It calculates the current FPS<p>	
+		<div>
+			<pre>The Profiler class<code>
+[SerializeField]
+private float fps;
+[SerializeField]
+private float averageFPS;
+
+[...]
+
+// Update is called once per frame
+void Update()
+{
+	fps = 1 / Time.deltaTime;
+
+	buffer[counter] = fps;
+
+	if(counter + 1 < bufferLenght)
+	{
+		counter++;
+	}
+	else
+	{
+		counter = 0;
+	}
+
+	float sum = 0;
+	for(int i = 0; i < bufferLenght; i++)
+	{
+		sum += buffer[i];
+	}
+
+	averageFPS = sum / bufferLenght;
+
+}			
+</pre></code>
+		</div>
+		<p>Simply attach this Script to one of the GameObjects in your scene to monitor fps and average fps.</p>
+		<img class="img-quarter" src="img/Blog/Blog6/Profiler.png" alt=""></img>
+		<p>
+		For a good estimation I slowly increased the "worldWidthInSections" and "worldHeightInSections" properties in the Worldmanager.
+		I could see a decrease in the FPS at arround 100x50 Sections (5000 each Planets and whales at same time on the screen) to about 47 FPS.
+		Now I could start improving the Performance.
+		</p>
+	</div>
+	<div class="blogCard">
+		<h2>Improve performance in Unity</h2>
+		<p>The solution to the fps problem was to periodically unload the objects to far away and load those which are now closer to the player.
+		The first step was already made by dividing the whole Gameworld into smaller chuncs which I called "Sections". Now I needed a way to load and unlaod them.
+		Each monobeheaviour in a Unityproject uses the Update and FixedUpdateMethodes. Which are ALWAYS called - And I don't need the GameObjects which are far away to update.
+		So I coudn't work with the default Methodes of updating GameObjects.</p>
+		<br>
+		<h2>The EntityManager class</h2>
+		<p>In the GameManager-class I keep all of my Sections in an Array sections[x,y] to easy figure out where each section belongs into the world. Seperatly I also implemented
+		a List of Sections called "activeSections". In the Monobehaviour.Update()-Methode of the GameManager-class I call then every Section and Update it as well with Section.SectionUpdate().
+		The section itself just needs to upate all Entities which are currently physically within this section. The same has of course also to be done with the Monobehaviour.FixedUpdate()- Methode,
+		So I also call Section.FixedUpdateSection() from the GameManager-class.
+		</p>
+		<div>
+<pre>Part of the WorldManager-class<code>
+public class WorldManager : MonoBehaviour
+{
+
+	[...]
+
+	void Update()
+	{
+		RemoveOutOfRangeSections();
+
+		AddSectionsToActiveList();
+		
+		foreach(Section s in activeSections)
+		{
+			s.UpdateSection();
+		}
+	}
+	
+	public void FixedUpdate()
+	{
+		foreach (Section s in activeSections)
+		{
+			s.FixedUpdateSection();
+		}
+	}
+}			
+</pre></code>
+		</div>
+		<p>The code in the to methodes Add- and RemoveSections was fast implemented and now it works. To further improve Performance I also added a "OnUnload" Methode 
+		to all EntityManager classes, so foreach object I can deactivate certain Components (i.e. Spriterenderes and boxColliders) if the object gets unloaded.</p>
+    </div>
+	<div class="blogCard">
+      <h2>It works! Lets explore the (not really random) world!</h2>
+	  <p>Watch a short demo of the different sections loading, for better visibility I added a frame arround the Scenes.</p>
+		<video class="video" controls>
+		  <source src="videos/SceneLoading.mp4" type="video/mp4">
+		  Your browser does not support HTML5 video.
+		</video>
+    </div>
+	<div>
+		<a href="Blog.html#Blog6" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
+	<!--div class="blogCard">
+      <h2>New entry Example</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>BliBlaBlub</p>
+      <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div-->
+  </div>
+</div>  
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="span6 offset3">
+				<ul class="social-networks">
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+				</ul>
+				<p class="copyright">
+					&copy; Maxim Theme. All rights reserved.
+					<div class="credits">
+						<!--
+			All the links in the footer should remain intact.
+			You can delete the links only if you purchased the pro version.
+			Licensing information: https://bootstrapmade.com/license/
+			Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+		  -->
+						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/jquery.localScroll.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/isotope.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/inview.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="contactform/contactform.js"></script>
+
+</body>
+</html>
