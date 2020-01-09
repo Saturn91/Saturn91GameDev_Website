@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Add a gray background color with some padding */
+		body {
+		  font-family: Arial;
+		  padding: 20px;
+		  background: #f1f1f1;
+		}
+
+		/* Header/Blog Title */
+		.header {
+		  padding: 30px;
+		  font-size: 40px;
+		  text-align: center;
+		  background: white;
+		}
+
+		/* Create two unequal columns that floats next to each other */
+		/* Left column */
+		.leftcolumn {   
+		  float: left;
+		  width: 75%;
+		}
+
+		/* Right column */
+		.rightcolumn {
+		  float: left;
+		  width: 25%;
+		  padding-left: 20px;
+		}
+		
+		/* Center column */
+		.center {
+			margin: auto;
+			width: 80%;
+		}
+
+		/* Fake image */
+		.img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+		.img-half {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 40%;
+		}
+		
+		.img-quarter {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 20%;
+		}
+		
+		.video {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Footer */
+		.footer {
+		  padding: 20px;
+		  text-align: center;
+		  background: #ddd;
+		  margin-top: 20px;
+		}
+		
+		/* Link */
+		.link {
+			color: #7c2f2f;
+		}
+		
+		pre code {
+			background-color: #eee;
+			border: 1px solid #999;
+			display: block;
+			padding: 20px;
+		}
+
+		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 800px) {
+		  .leftcolumn, .rightcolumn {   
+			width: 100%;
+			padding: 0;
+		  }
+		}
+		</style>
+	<meta charset="utf-8">
+	<title>Saturn91 - GameDev</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
+	<!-- =======================================================
+    Theme Name: Maxim
+    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
+				<h1 class="brand"><a href="index.html">Saturn91 Game Dev</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+					<ul id="menu-main" class="nav">
+						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
+						<!--li><a title="services" href="#services">Services</a></li-->
+						<li><a title="Games" href="index.html#Games">Games</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
+						<li><a title="contact" href="index.html#contact">Contact</a></li>
+						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="center">
+	<div class="blogCard">
+      <h2>Changing Sections in Unity</h2>
+      <img class="img-half" src="img/blog_preview/Blog8.png" alt=""></img>
+	  <p>In this Dev-Log I will explain to you briefly, how my section management for moving entities works. Further we look into a beheaviour of Floats in C#
+	  which lead to a strange Bug which took a while to fix.
+	  </p>
+	</div>  
+	<div class="blogCard">
+	  <h3>Section Management</h3>
+      <p>As explained in <a href="blog6.html" class="link"><strong>Devlog Jan 5, 2020 "Loading Sections"</strong></a> my gameworld is devided in what I call Sections.
+	  As I'm moving the player arround, I change the state of Sections offscreen to "not loaded". As each Section holds all the entities which are currently located
+	  physically in its area, I know exactly which entities I have to update (because they are close to the player) And which I can ignore because the player isn't seeing them
+	  anyway at the moment.</p>
+	  <br>
+	  <p> 
+	  For entities like planets, this is very simple. As you load the gameworld (or actually the section in the first time of your session) I instantiate the planet from a Prefab
+	  and set the section arround its position as its parent. It gets complicated if you have a actually moving entity, for example a spaceship or a whale, these are naturally 
+	  allowed to move arround and will change between sections at some point. The bellow showed code manages the changing of sections.
+	  </p>
+	  <div>
+	  <pre>Part of the class "EntityManager"<code>
+private void UpdateSection()
+{
+	if(state != SectionState.active)
+	{
+		state = SectionState.active;
+		SetAllBehaviourEnabled(true);
+	}
+	
+	Section newSection = worldManager.GetSectionDirect(rb2d.position);
+
+	if (actualSection != null)
+	{
+		if (actualSection != newSection)
+		{
+			//Debug i.e. "(0, 0) at (15.0, 10.0, 0.0) to (0, 1) at (15.0, 30.0, 0.0)  --> if changed section"
+			Debug.Log(
+				actualSection.GetPositionInSectionGrid() + " at " + actualSection.transform.position + 
+				" to " + newSection.GetPositionInSectionGrid() + " at " + newSection.transform.position);
+			
+			newSection.AddDynamicToSection(this);
+			actualSection.RemoveEntity(this);
+			actualSection = newSection;
+		}
+	}
+	else
+	{
+		Debug.LogError("actual Section can not be null!");
+	}          
+}</pre></code>
+		</div>
+		<p>The function "WorldManager.GetSectionDirect(Vector3 position)" returns the section which is arround the instert Position Vector3 (holds 3 floats
+		x, y, z). See the code bellow.</p>
+		<div>
+	  <pre>Part of the class "WorldManager"<code>
+public Section GetSectionDirect(Vector3 positionInUnits)
+{
+	Vector2Int vectTemp = GetSectionIndicatorDirect(positionInUnits);
+	return sections[vectTemp.x, vectTemp.y];
+
+}
+
+public Vector2Int GetSectionIndicatorDirect(Vector3 positionInUnits)
+{
+	Vector2Int vectTemp = new Vector2Int();
+	if (positionInUnits.x >= 0 && positionInUnits.x <= GetWorldWidthInUnits() && positionInUnits.y >= 0 && positionInUnits.y <= GetWorldHeightInUnits())
+	{
+		vectTemp.x = (int) (positionInUnits.x / sectionWidthInUnits) - ((positionInUnits.x % sectionWidthInUnits) / sectionWidthInUnits);
+		vectTemp.y = (int) (positionInUnits.y / sectionHeightInUnits) - ((positionInUnits.y % sectionHeightInUnits) / sectionHeightInUnits);
+
+		return vectTemp;
+	}
+	else
+	{
+		Debug.LogError("Outside WorldGrid, outside sectionsrange!");
+		vectTemp.x = -1;
+		vectTemp.y = -1;
+		return vectTemp;
+	}
+}</pre></code>
+		</div>
+		<p>The main function GetSectionIndicatorDirect(Vector3 positionInUnits) does the all the hard work of finding out to which section a position in the world actually
+		belongs. With the line after "vectTemp.x = ..." I do basically a position.x / sectionwidth (which results for 2.345 * sectionWidth in 2.345) and substract all numbers behind the comma (2.345 * sectionWidth % sectionWidth = 0.345, so 2.345 - 0.345 = 2?)
+		In the end I convert to int with "(int)". This looks as if it would work... but it doesn't! Figured already out why not?
+		It has to do with how the conversion into int works.</p> 
+		<br>
+		So to show you where the bug was located I wrote a short C# program. All it does is actually list some float numbers and convert them to int, then print both.
+		<div>
+	  <pre>The code<code>
+private void PrintSomeFloats()
+{
+	for(int i = 0; i < 100; i+=5)
+	{
+		DebugFloat(1.0f + i * 0.01f);
+	}
+}
+
+private void DebugFloat(float value)
+{
+	Debug.Log(" (int) " + value + "=" + (int)value);
+}</pre></code>
+		</div>
+<div>
+	  <pre>And the result: (please note that because of how floats work and Unity Debug.Log(...) the floats get displayed rounded, more about that later...)<code>
+ (int) 1=1
+ (int) 1.05=1
+ (int) 1.1=1
+ (int) 1.15=1
+ 
+  [...]
+ 
+ (int) 1.85=1
+ (int) 1.9=1
+ (int) 1.95=1
+	  </pre></code>
+		</div>
+		<p>But as we look at this, it would still work right, because if we convert 1 with (int) 1 we get actually 1 right?</p>
+		<br>
+		<h2>Nope Here is why:</h2>
+		<br>
+		<p>The way which float numbers work is special, there is no 2 (.00000000 --> unitl forever) the closest to numbers in floats are something like 1.999999f and 2.000000001f.
+		So what we calculate in the GetSectionIndicatorDirect(Vector3 positionInUnits) function is either a value 1.9999999999 or 2.0000001 if we would round that, it dosn't make a different, it is still 2
+		but if we convert it to int by (int), we get 1 once (for the 1.99999999) and some milliseconds later 2 (for the 2.00000001). As soon as my whale exited the 0/0 - Section this resulated in it jumping arround fast between 
+		0/0 and Section 0/1 or 1/1 because of rounding erros... I had made my life more complicated than nescessairy. Look at the final code which is implemented now</p>
+		<br>
+		<div>
+	  <pre>2 lines of short, but working code<code>
+vectTemp.x = (int) (positionInUnits.x / sectionWidthInUnits);
+vectTemp.y =  (int) (positionInUnits.y / sectionHeightInUnits);
+	  </pre></code>
+		</div>
+		<p>Look here at <strong><a class="link" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic" target="_blank">Wikipedia</strong></a> if you want to now more about how floats work.</p>
+	</div>
+	<div>
+		<a href="Blog.html#Blog6" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
+	<!--div class="blogCard">
+      <h2>New entry Example</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>BliBlaBlub</p>
+      <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div-->
+  </div>
+</div>  
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="span6 offset3">
+				<ul class="social-networks">
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+				</ul>
+				<p class="copyright">
+					&copy; Maxim Theme. All rights reserved.
+					<div class="credits">
+						<!--
+			All the links in the footer should remain intact.
+			You can delete the links only if you purchased the pro version.
+			Licensing information: https://bootstrapmade.com/license/
+			Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+		  -->
+						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/jquery.localScroll.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/isotope.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/inview.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="contactform/contactform.js"></script>
+
+</body>
+</html>
