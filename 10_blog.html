@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Add a gray background color with some padding */
+		body {
+		  font-family: Arial;
+		  padding: 20px;
+		  background: #f1f1f1;
+		}
+
+		/* Header/Blog Title */
+		.header {
+		  padding: 30px;
+		  font-size: 40px;
+		  text-align: center;
+		  background: white;
+		}
+
+		/* Create two unequal columns that floats next to each other */
+		/* Left column */
+		.leftcolumn {   
+		  float: left;
+		  width: 75%;
+		}
+
+		/* Right column */
+		.rightcolumn {
+		  float: left;
+		  width: 25%;
+		  padding-left: 20px;
+		}
+		
+		/* Center column */
+		.center {
+			margin: auto;
+			width: 80%;
+		}
+
+		/* Fake image */
+		.img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+		.img-half {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 40%;
+		}
+		
+		.img-quarter {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 20%;
+		}
+		
+		.video {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 80%;
+		}
+		
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Footer */
+		.footer {
+		  padding: 20px;
+		  text-align: center;
+		  background: #ddd;
+		  margin-top: 20px;
+		}
+		
+		/* Link */
+		.link {
+			color: #7c2f2f;
+		}
+		
+		pre code {
+			background-color: #eee;
+			border: 1px solid #999;
+			display: block;
+			padding: 20px;
+		}
+
+		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 800px) {
+		  .leftcolumn, .rightcolumn {   
+			width: 100%;
+			padding: 0;
+		  }
+		}
+		</style>
+	<meta charset="utf-8">
+	<title>Saturn91 - GameDev</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
+	<!-- =======================================================
+    Theme Name: Maxim
+    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
+				<h1 class="brand"><a href="index.html">Saturn91 Game Dev</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+					<ul id="menu-main" class="nav">
+						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
+						<!--li><a title="services" href="#services">Services</a></li-->
+						<li><a title="Games" href="index.html#Games">Games</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
+						<li><a title="contact" href="index.html#contact">Contact</a></li>
+						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="center">
+	<div class="blogCard">
+      <h2>Implementing Whalebehaviour</h2>
+      <img class="img-half" src="img/blog_preview/Blog9.png" alt=""></img>
+	  <p>Look over my shoulders while I'm implementing the whale behaviour using a statemachine.
+	  </p>
+	</div>  
+	<div class="blogCard">
+		<h3>How to implement a statemachines</h3>
+		<p>A state machine is a concept which can be used to describe and program the physical behaviour of any object which has a countable amount of states. See 
+		<a class="link" href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank">Wikipedia, "Finite Statemachine"</a> for more details. The easiest way to 
+		explain the idea behind a statemachine is by using an example everyone knows. In this case we will use a simple electrical swing door. 
+		<h4> The states of a door</h4>
+		We start by itentify the different states of the door:
+		<br>
+		<br>
+		1. Closed 	(position closed, door angle = 0°)
+		<br>
+		2. opening	(turnig door in positiv sense)
+		<br>
+		3. Open		(position open, door angle = 90°)
+		<br>
+		4. closing	(turnig door in negativ sense)
+		<br>
+		<br>
+		These are all the possible states a door can reache. We can use this combined with transactions to actually write code in C# which can be used to controll a door.
+		</p>
+		<h4>The Transactions in between</h4>
+		<p>
+		Transactions are used to get from one state to another. Lets asume, that our Door has a button infront of the door. If it gest pushed we want the door to slide open, 
+		then wait for a given amount of time (lets say 5s) and then slide back to closed. This defines the following transactions:
+		<br>
+		<br>
+		1. From closed to opening -> Button "open door"
+		<br>
+		2. From opening to Open -> Door is open (i.e. defined by the rotation of the door hinch > 85°)
+		<br>
+		3. from Open to closing -> Door was open for 5s
+		<br>
+		4. From closing to Closed -> Door is closed (i.e. defined by rotation of the door hinch < 5°)
+		<br>
+		<br>
+		Finally draw your statemachine to check, document and evtentually improve: </p>
+		
+		<img class="img-half" src="img/Blog/Blog9/DoorStatemachine.png" alt=""></img>
+		<h3>Finally code it!</h3>
+		<div>
+	  <pre>Example Statemachine code for a simple door (pseudo code!)<code>
+[SerializableField]
+private DoorStates doorState = DoorStates.closed;       //Door is initially closed
+private float timeDoorWasOpen = 0;
+
+public void Update()
+{
+	switch (doorState)
+	{
+		case DoorStates.closed:
+			//Wait until door button is pressed
+			if (BTN_open_door)
+			{
+				doorState = DoorStates.opening;
+			}
+			break;
+
+		case DoorStates.opening:
+			TurnDoorMotorLeft();                        //handle door opening
+			if(door.transsform.rotation.z > 85)
+			{
+				doorState = DoorStates.open;
+				timeDoorWasOpen = Time.FixedTime;       //Get time as door was (almoust) open
+			}
+			break;
+
+		case DoorStates.open:
+			//wait 5s
+			if(TimeoutException.FixedTime - timeDoorWasOpen > 5)
+			{
+				doorState = DoorStates.closing;
+			}
+			break;
+
+		case DoorStates.closing:
+			TurnDoorMotorRight();                        //handle door closing
+			if (door.transsform.rotation.z < 5)
+			{
+				doorState = DoorStates.closed;
+			}
+			break;
+
+		default:
+			doorState = DoorStates.closing;
+			Debug.LogError("unhandled state, force door into initial state 'closed'");
+			break;
+	}
+}
+
+public enum DoorStates
+{
+	open, opening, closed, closing
+}</pre></code>
+		</div>
+	</div>
+	<div class="blogCard">
+      <h2>Whale behaviour statemachine</h2>
+      <img class="img" src="img/Blog/Blog9/WhaleStatemachine.png" alt=""></img>
+      <p>
+	  With the explained technique it was easy to implement the above Statemachine. You can see the result bellow. I may point out, that this is the example
+	  of a none aggresiv whale witch flees from the player. Aggresive whales are still on the todo-list. Further the color change displays the current state of the whale. Oh and did I mention I changed the background a little bit ;-).
+	  </p>
+	  <video class="video" controls>
+		  <source src="videos/WhaleBehaviour.mp4" type="video/mp4">
+		  Your browser does not support HTML5 video.
+		</video>
+    </div>
+	<div>
+		<a href="Blog.html#Blog9" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
+	<div class="blogCard">
+		<iframe width="800" height="500" src="https://www.youtube.com/embed/UQfd9X6t-jI"></iframe>	
+	</div>
+	<!--div class="blogCard">
+      <h2>New entry Example</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>BliBlaBlub</p>
+      <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div-->
+  </div>
+</div>  
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="span6 offset3">
+				<ul class="social-networks">
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+				</ul>
+				<p class="copyright">
+					&copy; Maxim Theme. All rights reserved.
+					<div class="credits">
+						<!--
+			All the links in the footer should remain intact.
+			You can delete the links only if you purchased the pro version.
+			Licensing information: https://bootstrapmade.com/license/
+			Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+		  -->
+						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/jquery.localScroll.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/isotope.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/inview.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="contactform/contactform.js"></script>
+
+</body>
+</html>
