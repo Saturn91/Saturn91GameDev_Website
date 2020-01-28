@@ -1585,40 +1585,6 @@ i.icon-white {
 	height: auto;
 }
 
-.blogCard {
-	
-	background-color: #7c2f2f;
-	color: white;
-	padding: 20px;
-	margin-top: 20px;
-	margin: 30px;
-	border-radius: 28px;
-}
-
-.blogCard h1{	
-	color: white;
-}
-
-.blogCard h2{	
-	color: white;
-}
-
-.blogCard h3{	
-	color: white;
-}
-
-.blogCard h4{	
-	color: white;
-}
-
-.blogCard h5{	
-	color: white;
-}
-
-.blogCard a{	
-	color: white;
-}
-
 /* =========================================================
 09. Media queries
 ============================================================ */
@@ -1740,10 +1706,7 @@ i.icon-white {
 }
  section#services h2, section#services ul {
  text-align: center;
-}
-
-
-		
+}		
 
 /* team */
 		
@@ -1770,4 +1733,45 @@ i.icon-white {
 		width: 100%;
 	}
 
+}
+
+.blogCard {
+	
+	background-color: #7c2f2f;
+	color: white;
+	padding: 10px;
+	margin-top: 20px;
+	margin: 10px;
+	border-radius: 28px;
+}
+
+pre code {
+	background-color: #eee;
+	border: 1px solid #999;
+	display: block;
+	padding: 20px;
+}
+
+.blogCard h1{	
+	color: white;
+}
+
+.blogCard h2{	
+	color: white;
+}
+
+.blogCard h3{	
+	color: white;
+}
+
+.blogCard h4{	
+	color: white;
+}
+
+.blogCard h5{	
+	color: white;
+}
+
+.blogCard a{	
+	color: white;
 }

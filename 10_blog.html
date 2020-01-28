@@ -1,112 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style>
-		* {
-		  box-sizing: border-box;
-		}
-
-		/* Add a gray background color with some padding */
-		body {
-		  font-family: Arial;
-		  padding: 20px;
-		  background: #f1f1f1;
-		}
-
-		/* Header/Blog Title */
-		.header {
-		  padding: 30px;
-		  font-size: 40px;
-		  text-align: center;
-		  background: white;
-		}
-
-		/* Create two unequal columns that floats next to each other */
-		/* Left column */
-		.leftcolumn {   
-		  float: left;
-		  width: 75%;
-		}
-
-		/* Right column */
-		.rightcolumn {
-		  float: left;
-		  width: 25%;
-		  padding-left: 20px;
-		}
-		
-		/* Center column */
-		.center {
-			margin: auto;
-			width: 80%;
-		}
-
-		/* Fake image */
-		.img {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 80%;
-		}
-		
-		.img-half {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 40%;
-		}
-		
-		.img-quarter {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 20%;
-		}
-		
-		.video {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 80%;
-		}
-		
-
-		/* Clear floats after the columns */
-		.row:after {
-		  content: "";
-		  display: table;
-		  clear: both;
-		}
-
-		/* Footer */
-		.footer {
-		  padding: 20px;
-		  text-align: center;
-		  background: #ddd;
-		  margin-top: 20px;
-		}
-		
-		/* Link */
-		.link {
-			color: #7c2f2f;
-		}
-		
-		pre code {
-			background-color: #eee;
-			border: 1px solid #999;
-			display: block;
-			padding: 20px;
-		}
-
-		/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-		@media screen and (max-width: 800px) {
-		  .leftcolumn, .rightcolumn {   
-			width: 100%;
-			padding: 0;
-		  }
-		}
-		</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<title>Saturn91 - GameDev</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,6 +9,7 @@
 	<meta name="author" content="">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<link href="css/blogStyle.css" rel="stylesheet">
 	<link href="color/default.css" rel="stylesheet">
 	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
 	<!-- =======================================================
@@ -151,125 +47,118 @@
 </div>
 
 <div class="row">
+	<br>
+	<br>
+	<br>
   <div class="center">
 	<div class="blogCard">
-      <h2>Implementing Whalebehaviour</h2>
-      <img class="img-half" src="img/blog_preview/Blog9.png" alt=""></img>
-	  <p>Look over my shoulders while I'm implementing the whale behaviour using a statemachine.
-	  </p>
-	</div>  
-	<div class="blogCard">
-		<h3>How to implement a statemachines</h3>
-		<p>A state machine is a concept which can be used to describe and program the physical behaviour of any object which has a countable amount of states. See 
-		<a class="link" href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank">Wikipedia, "Finite Statemachine"</a> for more details. The easiest way to 
-		explain the idea behind a statemachine is by using an example everyone knows. In this case we will use a simple electrical swing door. 
-		<h4> The states of a door</h4>
-		We start by itentify the different states of the door:
-		<br>
-		<br>
-		1. Closed 	(position closed, door angle = 0°)
-		<br>
-		2. opening	(turnig door in positiv sense)
-		<br>
-		3. Open		(position open, door angle = 90°)
-		<br>
-		4. closing	(turnig door in negativ sense)
-		<br>
-		<br>
-		These are all the possible states a door can reache. We can use this combined with transactions to actually write code in C# which can be used to controll a door.
-		</p>
-		<h4>The Transactions in between</h4>
-		<p>
-		Transactions are used to get from one state to another. Lets asume, that our Door has a button infront of the door. If it gest pushed we want the door to slide open, 
-		then wait for a given amount of time (lets say 5s) and then slide back to closed. This defines the following transactions:
-		<br>
-		<br>
-		1. From closed to opening -> Button "open door"
-		<br>
-		2. From opening to Open -> Door is open (i.e. defined by the rotation of the door hinch > 85°)
-		<br>
-		3. from Open to closing -> Door was open for 5s
-		<br>
-		4. From closing to Closed -> Door is closed (i.e. defined by rotation of the door hinch < 5°)
-		<br>
-		<br>
-		Finally draw your statemachine to check, document and evtentually improve: </p>
-		
-		<img class="img-half" src="img/Blog/Blog9/DoorStatemachine.png" alt=""></img>
-		<h3>Finally code it!</h3>
+	<h2>The WOWIE experience </h2>
+	<p>The WOWIE2.0 was a game jam hosted by Jonas Tyroller. The second WOWIE jam took part in January 2020. It started on Friday Jan the 17th 2020 and lastet for 74 hours until Monday morning.
+	<a class="link" href="https://blog.jorman.ch/" target="_blank"><strong>EinesteinsErbe</strong></a> a good freind of mine and I had decided, that this was the right time for us to (for the first time ever) participate in a game jam. Lets see how that worked out for us!</p>
+	</p>
+	<imageRow class="flex-center">
 		<div>
-	  <pre>Example Statemachine code for a simple door (pseudo code!)<code>
-[SerializableField]
-private DoorStates doorState = DoorStates.closed;       //Door is initially closed
-private float timeDoorWasOpen = 0;
-
-public void Update()
-{
-	switch (doorState)
-	{
-		case DoorStates.closed:
-			//Wait until door button is pressed
-			if (BTN_open_door)
-			{
-				doorState = DoorStates.opening;
-			}
-			break;
-
-		case DoorStates.opening:
-			TurnDoorMotorLeft();                        //handle door opening
-			if(door.transsform.rotation.z > 85)
-			{
-				doorState = DoorStates.open;
-				timeDoorWasOpen = Time.FixedTime;       //Get time as door was (almoust) open
-			}
-			break;
-
-		case DoorStates.open:
-			//wait 5s
-			if(TimeoutException.FixedTime - timeDoorWasOpen > 5)
-			{
-				doorState = DoorStates.closing;
-			}
-			break;
-
-		case DoorStates.closing:
-			TurnDoorMotorRight();                        //handle door closing
-			if (door.transsform.rotation.z < 5)
-			{
-				doorState = DoorStates.closed;
-			}
-			break;
-
-		default:
-			doorState = DoorStates.closing;
-			Debug.LogError("unhandled state, force door into initial state 'closed'");
-			break;
-	}
-}
-
-public enum DoorStates
-{
-	open, opening, closed, closing
-}</pre></code>
+			<img src="img/Blog/Blog10/WOWIE.jpg">
 		</div>
+		<div>
+			<img src="img/Blog/Blog10/JT.jpg">
+		</div>
+	</imageRow>
+	</div>
+	
+	<div class="blogCard">
+		<h2> Preperation </h2>
+		<p>If you have to finish a project in a given timeframe, it is always helpfull to do anything you can (and are allowed to do) before, before the project starts.
+		So, we setup a github repository days before the jam, had already a unity base project (complete with a default menu (without the falling buttons), audiomanager and a mainmenu and (empty) an gamescene) setup. Cofeemachine was heated up, 
+		Pen and paper ready to use, girlfriends informed and prepared (sorry hunny it might get late this evening...) and we both new exactly which timeframes we could use for the jam.
+		Last but not least, we made sure both teammembers agreed has the same Expetations on the game-reuslt, so nobody gets upset during the project.</p>
+		<imageRow class="flex-center">
+			<div>
+				<img src="img/Blog/Blog10/coffee.jpg">
+			</div>
+		</imageRow>
+	</div>
+	
+	<div class="blogCard">
+		<h2>Our Goals</h2>
+		<li>HAVING FUN WOWIE!!!!</li>
+		<li>Finish a game</li>
+		<li>KISS *keep it simple - and stupid</li>
+		<li>HAVING FUN WOWIE!!!!</li>
+	</div>	 
+	
+	<div class="blogCard">
+	<h2> The Topic </h2>
+	<p>Watch the WOWIE2.0 anouncment video in which Jonas revealed the topic for the Jam: "intended Bugs". As we heard that we looked at each other and cheered. For one
+	reason. We both like to hide eastereggs and "special" features in programms we design for our coworkers - and most of the time, the love it. Pretty quickly it was clear,
+	this would be great fun! So we started drafting ideas.</p>
+	<br>
+	<iframe class="video" src="https://www.youtube.com/embed/irB_7BqrwvE"></iframe>	
+	</div>	 
+	  
+	<div class="blogCard">
+	<h2>Designing the Jam Game</h2>
+	<p>To get as many ideas as possible in a very short amount of time, all three of us (in that phase my girlfriend got included) scribbled for arround 10min with pen and paper.
+	In the end we agreed on a 2D-puzzle game consiting of multiple levels each of which based on a new bug. With each level complete, the bug from the completed level
+	would be "fixed" which would lead to another bug.
+	<br>
+	So far so good. We started coding along...
+	</p>
+	<imageRow class="flex-center">
+		<div>
+			<img src="img/Blog/Blog10/Glitcher1.png">
+		</div>
+		<div>
+			<img src="img/Blog/Blog10/Monster.png">
+		</div>
+		<div>
+			<img src="img/Blog/Blog10/Boss.png">
+		</div>
+	</imageRow>
+	<p></p> 
 	</div>
 	<div class="blogCard">
-      <h2>Whale behaviour statemachine</h2>
-      <img class="img" src="img/Blog/Blog9/WhaleStatemachine.png" alt=""></img>
-      <p>
-	  With the explained technique it was easy to implement the above Statemachine. You can see the result bellow. I may point out, that this is the example
-	  of a none aggresiv whale witch flees from the player. Aggresive whales are still on the todo-list. Further the color change displays the current state of the whale. Oh and did I mention I changed the background a little bit ;-).
-	  </p>
-	  <video class="video" controls>
-		  <source src="videos/WhaleBehaviour.mp4" type="video/mp4">
-		  Your browser does not support HTML5 video.
-		</video>
+    <h2>The Title</h2> 
+	<p>The rest of friday was used to draft the first 3 levels and getting some basic stuff done, (mainly menu nad some othe rboring stuff) After the first day of coding, on friday evening, EinsteinsErbe and I sat on the couch playing some mario card before finishing the day. We had a little game
+	ongoing beside the mario card session. As soon as one of us had a title idea for our game he had to lay a side his controller and note it down, during which the
+	other one couldtry to get ahead in the game. At one point (EinsteinsErbe was close to getting the finishing line, he looks at me and says: "The Glitcher", "The wild bug hunt!"
+	cried I, I made it over the finishing line before him, and we had a title for our game.
+	<br>
+	<p>Needless to say, the next day (saturday) i had to redraw a few sprites for the game and put some effort into the thumbnail for our game. But it went on nicly. Meanwhile 
+	EE finished the menu a lot of people liked so much and added the elevel select menu. And that was all for satturday. We had a working menu and 3 very simple levels. So
+	naturally on sunday the good stuff, the funny stuff the magic happend. On that day we completly rewrote the 3 levels we already has, added enemies, 7 more levels some
+	of them which total different mechanics (flappy witcher) and added jumpscares, crashscreens a some glitch shaders. In the evening at 11 pm we had finished our game.</p>
+    
+	<img class="img-half" src="img/blog_preview/blog10.png">
+	
+	</div>
+	<div class="blogCard">
+		<h2>Rating</h2>  
+		<p>After a week rating all the other games of the jam, reading and commenting comments we got our result. Placed 16th from 357, and 5th in categorie "Topic"!
+		Well, we were speachless. We way overshoot all our expectations. It was a full success! We had a lot of fun, our game got played by arround 200 people, we learned 
+		a lot. It was well worth it! (Maybe you hear me still cheering, while I write this blog^^). 
+		<br>
+		<p>As promised by Jonas the Top 20 got a key to his soon to be released game "Will you snail" (Get it 
+		<a href="https://store.steampowered.com/app/1115050/Will_You_Snail/" target="_blank"><strong>here</strong></a>).
+		</p>
+		<img class="img-half" src="img/Blog/Blog10/raiting.png">
+			
     </div>
-	<div>
-		<a href="Blog.html#Blog9" class="btn btn-large btn-my">Back to Dev-Log</a>
-	</div>
+	
 	<div class="blogCard">
-		<iframe width="800" height="500" src="https://www.youtube.com/embed/UQfd9X6t-jI"></iframe>	
+    <h2>Conclusion</h2>   
+	<li>HAVING FUN WOWIE!!!! --> check</li>
+	<li>Finish a game --> check</li>
+	<li>KISS *keep it simple - and stupid --> check</li>
+	<li>HAVING FUN WOWIE!!!! --> check</li>
+    </div>
+	
+	<div class="blogCard">
+		<h2><a href="https://saturn91.itch.io/theglitcher" target="_blank"><strong>Play</strong></a> the Glitcher</h2>
+		<iframe class="video" src="https://www.youtube.com/embed/UQfd9X6t-jI"></iframe>	
+	</div>
+	<div>
+		<a href="Blog.html#Blog10" class="btn btn-large btn-my">Back to Dev-Log</a>
 	</div>
 	<!--div class="blogCard">
       <h2>New entry Example</h2>
