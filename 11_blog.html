@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Saturn91 - GameDev</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/blogStyle.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/FaviconSaturn91.ico">
+	<!-- =======================================================
+    Theme Name: Maxim
+    Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
+				<h1 class="brand"><a href="index.html">Saturn91 Game Dev</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+					<ul id="menu-main" class="nav">
+						<li><a title="team" href="index.html#who-am-i">Who am I</a></li>
+						<li><a title="Games" href="index.html#Games">Games</a></li>
+						<li><a title="blog" href="Blog.html">Blog</a></li>
+						<li><a title="contact" href="index.html#contact">Contact</a></li>
+						<li><a href="https://saturn91.itch.io/" target="_blank">itch.io</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<br>
+	<br>
+	<br>
+  <div class="center">
+	<div class="blogCard">
+		<h2>Creating a (nearly) endless universe</h2>
+		<p>
+			No, I'm not growing totaly made and playing start to play god from now on, we are talking about my
+			Game "Argh, there she blows". Until now the game world you could play in, was fairly small. It was
+			already generated randomly based on a seed but it wasn't large enough. On this page I will explain the 
+			basics of how I programmed a universe which will take a player 18 days straight from 0,0 to reach the border
+			of the universe - in every direction!
+		</p>
+		<img class="img-half" src="img/Blog/Blog11/Result.png">
+		<br>
+		<h3 style="text-align: center">
+			<strong>Play the game here: <a href="https://saturn91.itch.io/argh-there-she-blows">Click me!</a></strong>
+		</h3>
+	</div>
+	
+	<div class="blogCard">
+		<h2> What is random generation (in my eyes) </h2>
+		<p>
+			Please note, I'm not an 'Expert' in this field. Don't you dare cite my in some kind of sientific
+			work please! This is just my personal understanding of the matter based on my own experience. Ok
+			Boomer, we get it your not a scientist (in this matter).
+			<br>
+			If you look at my currently 3 Games you might realize that two of them have some random 
+			generated mechanics.
+		</p>
+	</div>
+	
+	<div class="blogCard">	
+		<h2>AI-Buster: generate a dungeon before the game starts</h2>
+		<p>
+			In AI-Buster (basically a simple dungeon crawler with tanks) at the 
+			beginning of each round a unique dungeon gets generated based on a seed. I solved that 
+			by using a methode called "binary space partitioning" look at it 
+			<strong><a href="https://medium.com/@guribemontero/dungeon-generation-using-binary-space-trees-47d4a668e2d0" target="_blank">
+			here</a></strong>. The result looks something like this:			
+		</p>
+		<img class="img-half" src="img/Blog/Blog11/AI_Buster.png">
+		<p>This couldn't be used for the current game as there is no way a computer can generate the whole "endless"
+		universe at the beginning of each game. This was to static.
+		</p> 
+	</div>
+	
+	<div class="blogCard">
+		<h2>A nameless Android Prototype: (kinda) endless gameplay</h2>
+		<p>A second approach used for on of my never finished prototype (some people might say it 
+		looks similair to Doodle-jump (or flappy bird, or...) is the following approch:
+		</p> 
+		<img class="img-half" src="img/Blog/Blog11/ObstacleGeneration.png">
+		<p>The player moves constantly in one direction (or the world moves and the player stands still?) 
+		In front of him (just outside the screen) obstacles and loot is generated, objects which leave the 
+		screen on the other side get (as we say in unity) destroyed, BOOM!
+		<br>
+		This also couldn't be used, because we wan't to move in all direction dha! 
+		</p>
+	</div>	
+
+	<div class="blogCard">
+		<h2>The base concept</h2>
+		<p>
+		As you might have seen in one of my older blog entries I would like to organize my universe into smaller
+		sections. These sections I can then load and unload based on their distance to the player. To describe 
+		such a section I use a seed. Basically each section gets loaded with: "InitSection(seed);". So what I'm 
+		searching is a methode which allows my to always get the same seed at the same position. Something like:
+		</p> 
+		<pre>Seed function<code>
+seedSection = generateSeed(x,y);	//generate a seed which is always the same depending on position		
+</pre></code>
+		<p>
+			hm... seeds, sections (chunks) sounds like an other game I'm playing a lot...
+		</p>
+	</div>	
+	
+	<div class="blogCard">
+		<h2>Minecraft, perlin noise!</h2>
+		<p>
+		There is a mathematical function which basically does exactly what I'm searching for. It
+		is called Perlin Noise. Read about it <strong><a href="https://en.wikipedia.org/wiki/Perlin_noise" target="_blank">here.</a></strong>
+		<br>
+		Minecraft uses it and has a nearly endless world, so it has to be good right? <br>
+		Well... no. I mean Notch did a fantastic job creating a random landscape using perlin noise,
+		and thats because perlin noise is meant to be used for landscapes. Lets look at an example:
+		</p> 
+		<img class="img-half" src="img/Blog/Blog11/PerlinNoise.png">
+		<p>
+		If we look at the image we see some different shades of grey, 255 shades of grey to be exact. 
+		Each of those grey colorvalues is represented by a floating number ranging from 0-1. Which means 
+		that some of those white or black spots are exactly 0 or 1 which means that an awfull lot of
+		the ccordinates give back the same two seeds. And even worse, there might be whole regions of the
+		exactly the same section. Soooo... not what we are searching either.
+		</p>
+	</div>
+	
+	<div class="blogCard">
+	<h2> The Solution </h2>
+	<p>
+	After some further researching I found the following 
+	<strong><a href="https://www.gamedev.net/forums/topic/606649-seemingly-random-number-based-on-coordinates/%22http://stackoverflow.com/questions/6469969/pseudo-random-number-generator-from-two-inputs%22" target="_blank">
+	gem</a></strong>. In this forum entry the user alvaro provides us with the following piece of code:
+	</p>
+	<pre>Random long based on coordinates<code>
+long hash(long x, long y) {
+	long result = x;
+	result *= MAGIC_CONSTANT_1|1;
+	result += MAGIC_CONSTANT_2;
+	result = (result>>32) + (result<<32);
+	result ^= MAGIC_CONSTANT_3;
+	result += y;
+	result *= MAGIC_CONSTANT_4|1;
+	result += MAGIC_CONSTANT_5;
+	result = (result>>32) + (result<<32);
+	result ^= MAGIC_CONSTANT_6;
+	result *= MAGIC_CONSTANT_7|1;
+
+	return result;
+}</pre></code>
+	<p>
+		I just had to invent som random seven constants to replace the MAGIC_CONSTANT_X values and 
+		Bazinga! I could create random seeds based on coordinates. It works like a charm.
+	</p>
+	</div>	 
+	  
+	<div class="blogCard">
+	<h2>The result</h2>
+	<p>
+	In combination with my already described loading and unloading algorithym I was no able to create
+	an endless world. Theoretically...
+	<br>
+	There was one more problem to be solved. Unity uses a float value for each the horizontal (x) and
+	vertical (y) axis used in the transform.position Vector2. Floating numbers, have a weird beheaviour
+	of beeing very precise in the lower values (-5000 to 5000) and getting less and less percise the further
+	away from 0:0. In most cases this shoudn't make a difference, in this case it might at some point.
+	<br>
+	For now, I just mentioned it here, stay tuned for the next blog entry. So what stays is to show you the
+	result.
+	</p>
+	</div>
+	
+	
+	
+	<div class="blogCard">
+		<h2><a href="https://saturn91.itch.io/argh-there-she-blows" target="_blank"><strong>Play</strong></a> Argh, there she blows</h2>
+		<video class="video" controls style="width:75%">
+		  <source src="videos/ShowWorld.mp4" type="video/mp4" >
+		  Your browser does not support HTML5 video.
+		</video>
+	</div>
+	
+	<div>
+		<a href="Blog.html#Blog11" class="btn btn-large btn-my">Back to Dev-Log</a>
+	</div>
+	<!--div class="blogCard">
+      <h2>New entry Example</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>BliBlaBlub</p>
+      <p>(Content) Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div-->
+  </div>
+</div>  
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="span6 offset3">
+				<ul class="social-networks">
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+					<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+				</ul>
+				<p class="copyright">
+					&copy; Maxim Theme. All rights reserved.
+					<div class="credits">
+						<!--
+			All the links in the footer should remain intact.
+			You can delete the links only if you purchased the pro version.
+			Licensing information: https://bootstrapmade.com/license/
+			Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+		  -->
+						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<script src="js/jquery.localScroll.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/isotope.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/inview.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="contactform/contactform.js"></script>
+
+</body>
+</html>
