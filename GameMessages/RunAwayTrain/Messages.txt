@@ -1,2 +1,2 @@
-image='imageID'
-text='This is a test!'
+image='imageID'$
+text='This is a test'$
