@@ -1,3 +1,3 @@
 header='Upgrade!'$
 image='bandit'$
-text='I upgraded the Game to the new version 0.0.2. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
+text='I upgraded the Game to the new version v0.0.2. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
