@@ -1,3 +1,3 @@
-header='Upgrade!'$
-image='!'$
-text='I upgraded the Game to the new version V0.2.0. I improved the gui quite a bit. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
+header='Upgrade V0.2.3!'$
+image='bandit'$
+text='I upgraded the Game to the new version V0.2.3. I improved the ingame HUD. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
