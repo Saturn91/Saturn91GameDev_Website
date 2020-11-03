@@ -1,3 +1,3 @@
 header='Upgrade V0.2.4!'$
-image='bag'$
-text='I upgraded the Game to the new version V0.2.4. It is just a small HUD-Upgrade. A trainoperator is showling coal now :P. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
+image='!'$
+text='I upgraded the Game to the new version V0.3.0. This new version contains now bioms and different wagons and locomotives. To get more informations and other games, visit me on Saturn91.dev. Cheers, you are asome!'$
