@@ -1,3 +1,3 @@
 header='Release 1.0.0'$
 image='bag'$
-text='Hi there! Thanks for downloading my game. I'm currently getting a lot of feedback regarding balancing and smaller bugs, I will fix them in a patch comming soon ;-). I keep you updated here. You don't have Version 1.0.0? Download it on https://saturn91.itch.io/runawaytrain. For more information view my Website Saturn91'$
+text='Hi there! Thanks for downloading my game. I am currently getting a lot of feedback regarding balancing and smaller bugs, I will fix them in a patch comming soon ;-). I keep you updated here. You don't have Version 1.0.0? Download it on https://saturn91.itch.io/runawaytrain. For more information view my Website Saturn91'$
